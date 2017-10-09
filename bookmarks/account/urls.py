@@ -39,6 +39,7 @@ urlpatterns = [
         # post views
         #url(r'^login/$', views.user_login, name='login'),
         
+        url(r'^$', views.dashboard, name='dashboard'),
         #login logout
         url(r'^login/$', login, name='login'),
         url(r'^logout/$', logout, name='logout'),
