@@ -9,17 +9,17 @@ class ImageCreateForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ('title','url','description')
-        #ÎÒÃÇµÄÓÃ»§²»»áÔÚ±íµ¥ÖĞÖ±½ÓÎªÍ¼Æ¬Ìí¼Ó URL
-        #ËûÃÇ½«»áÊ¹ÓÃÒ»¸ö JavaScropt ¹¤¾ßÀ´´ÓÆäËûÍøÕ¾ÖĞÑ¡ÔñÒ»ÕÅÍ¼Æ¬È»ºóÎÒÃÇµÄ
-        #±íµ¥½«»áÒÔ²ÎÊıµÄĞÎÊ½½ÓÊÕÕâÕÅÍ¼Æ¬µÄ URL
-        #ÎÒÃÇ¸²Ğ´ url ×Ö¶ÎµÄÄ¬ÈÏ¿Ø¼ş£¨widget£©ÎªÒ»¸ö HiddenInput ¿Ø¼ş£¬Õâ¸ö¿Ø¼ş½«
-        #»á±»äÖÈ¾ÎªÊôĞÔÊÇ type="hidden" µÄ HTML ÔªËØ
-        #ÓÃÕâ¸ö¿Ø¼şÊÇÒòÎªÎÒÃÇ²»ÏëÈÃÓÃ»§¿´¼ûÕâ¸ö×Ö¶Î
+        #æˆ‘ä»¬çš„ç”¨æˆ·ä¸ä¼šåœ¨è¡¨å•ä¸­ç›´æ¥ä¸ºå›¾ç‰‡æ·»åŠ  URL
+        #ä»–ä»¬å°†ä¼šä½¿ç”¨ä¸€ä¸ª JavaScropt å·¥å…·æ¥ä»å…¶ä»–ç½‘ç«™ä¸­é€‰æ‹©ä¸€å¼ å›¾ç‰‡ç„¶åæˆ‘ä»¬çš„
+        #è¡¨å•å°†ä¼šä»¥å‚æ•°çš„å½¢å¼æ¥æ”¶è¿™å¼ å›¾ç‰‡çš„ URL
+        #æˆ‘ä»¬è¦†å†™ url å­—æ®µçš„é»˜è®¤æ§ä»¶ï¼ˆwidgetï¼‰ä¸ºä¸€ä¸ª HiddenInput æ§ä»¶ï¼Œè¿™ä¸ªæ§ä»¶å°†
+        #ä¼šè¢«æ¸²æŸ“ä¸ºå±æ€§æ˜¯ type="hidden" çš„ HTML å…ƒç´ 
+        #ç”¨è¿™ä¸ªæ§ä»¶æ˜¯å› ä¸ºæˆ‘ä»¬ä¸æƒ³è®©ç”¨æˆ·çœ‹è§è¿™ä¸ªå­—æ®µ
         widgets={
             'url':forms.HiddenInput,
         }
-    #Í¨¹ıÊ¹ÓÃÒÔ clean_<fieldname> ĞÎÊ½
-    #ÃüÃûµÄ·½·¨À´ÊµÏÖ¡£Õâ¸ö·½·¨»áÔÚÄãÎªÒ»¸ö±íµ¥ÊµÀıÖ´ĞĞ is_valid() Ê±Ö´ĞĞ
+    #é€šè¿‡ä½¿ç”¨ä»¥ clean_<fieldname> å½¢å¼
+    #å‘½åçš„æ–¹æ³•æ¥å®ç°ã€‚è¿™ä¸ªæ–¹æ³•ä¼šåœ¨ä½ ä¸ºä¸€ä¸ªè¡¨å•å®ä¾‹æ‰§è¡Œ is_valid() æ—¶æ‰§è¡Œ
     def clean_url(self):
         url = self.cleaned_data['url']
         valid_extensions = ['jpg','jpeg']
@@ -27,16 +27,16 @@ class ImageCreateForm(forms.ModelForm):
         if extension not in valid_extensions:
             raise forms.ValidationError('The given url does not match valid image extensions')
         return url
-    #ModelForm Ìá¹©ÁËÒ»¸ö save() ·½·¨À´±£´æÄ¿Ç°µÄÄ£ĞÍÊµÀıµ½Êı¾İ¿âÖĞ£¬²¢ÇÒ·µ»ØÒ»¸ö¶ÔÏó
-    #Èç¹û commit ÊÇ False £¬ save() ·½·¨½«»á·µ»ØÒ»¸öÄ£ĞÍÊµÀıµ«ÊÇ²¢²»»á°ÑÕâ¸ö¶ÔÏó±£´æµ½Êı¾İ¿âÖĞ
+    #ModelForm æä¾›äº†ä¸€ä¸ª save() æ–¹æ³•æ¥ä¿å­˜ç›®å‰çš„æ¨¡å‹å®ä¾‹åˆ°æ•°æ®åº“ä¸­ï¼Œå¹¶ä¸”è¿”å›ä¸€ä¸ªå¯¹è±¡
+    #å¦‚æœ commit æ˜¯ False ï¼Œ save() æ–¹æ³•å°†ä¼šè¿”å›ä¸€ä¸ªæ¨¡å‹å®ä¾‹ä½†æ˜¯å¹¶ä¸ä¼šæŠŠè¿™ä¸ªå¯¹è±¡ä¿å­˜åˆ°æ•°æ®åº“ä¸­
     def save(self, force_insert=False,force_update=False,commit=True):
         image = super(ImageCreateForm, self).save(commit=False)
         image_url = self.cleaned_data['url']
         image_name = '{}.{}'.format(slugify(image.title),image_url.rsplit('.', 1)[1].lower())
-        # ´Ó¸ø¶¨µÄ URL ÖĞÏÂÔØÍ¼Æ¬
+        # ä»ç»™å®šçš„ URL ä¸­ä¸‹è½½å›¾ç‰‡
         response = request.urlopen(image_url)
-        #Ê¹ÓÃ Python µÄ urllib Ä£¿éÀ´ÏÂÔØÍ¼Æ¬£¬È»ºóµ÷ÓÃ save() ·½·¨°ÑÍ¼Æ¬´«µİ¸øÒ»¸ö
-        #ContentFiel ¶ÔÏó£¬Õâ¸ö¶ÔÏó±»ÏÂÔØµÄÎÄ¼şËùÊµÀı»¯
+        #ä½¿ç”¨ Python çš„ urllib æ¨¡å—æ¥ä¸‹è½½å›¾ç‰‡ï¼Œç„¶åè°ƒç”¨ save() æ–¹æ³•æŠŠå›¾ç‰‡ä¼ é€’ç»™ä¸€ä¸ª
+        #ContentFiel å¯¹è±¡ï¼Œè¿™ä¸ªå¯¹è±¡è¢«ä¸‹è½½çš„æ–‡ä»¶æ‰€å®ä¾‹åŒ–
         image.image.save(image_name,ContentFile(response.read()),save=False)
         if commit:
             image.save()

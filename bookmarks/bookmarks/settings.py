@@ -129,3 +129,15 @@ LOGOUT_URL = reverse_lazy('logout')
 #开发期间，我们可以配置Django在标准输出中输出e-mail内容来代替通过SMTP服务发送邮件
 #Django提供一个e-mail后端来输出e-mail内容到控制器中。编辑项目中settings.py文件，添加如下代码：
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#为了Django能在开发服务中管理用户上传的多媒体文件，在项目setting.py文件中添加如下设置：
+MEDIA_URL = '/media/' 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+
+
+
+
+
+

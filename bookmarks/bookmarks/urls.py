@@ -16,8 +16,17 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 
+from django.conf import settings 
+from django.conf.urls.static import static
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^account/',include('account.urls')),
     url(r'^images/', include('images.urls', namespace='images')),
 ]
+
+#在这种方法中，Django开发服务器将会在开发时改变对多媒体文件的服务
+#static()帮助函数最适合在开发环境中使用而不是在生产环境使用。绝对
+#不要在生产环境中使用Django来服务你的静态文件
+if settings.DEBUG: 
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
