@@ -39,7 +39,26 @@ def image_detail(request, id, slug):
     return render(request, 'images/image/detail.html', {'section': 'images','image': image})
 
 
-
+#Django 同样也提供了 require_POST 装饰器来只允许 POST 请求
+#一个可让你传递一组请求方法作为参数的 require_http_methods 装饰器
+#使用 Django 提供的 JsonResponse 类来将给你定的对象转换为一个 JSON 输出
+#这个类返回一个带有 application/json 内容类型的 HTTP 响应
+@login_required
+#@require_POST
+def image_like(request):
+    image_id = request.POST.get('id')
+    action = request.POST.get('action')
+    if image_id and action:
+        try:
+            image = Image.objects.get(id=image_id)
+            if action == 'like':
+                image.users_like.add(request.user)
+            else:
+                image.users_like.remove(request.user)
+            return JsonResponse({'status':'ok'})
+        except:
+            pass
+    return JsonResponse({'status':'ko'})
 
 
 
