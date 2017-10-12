@@ -3,7 +3,9 @@
 {% block title %}{{ image.title }}{% endblock %} 
 {% block content %} 
     <h1>{{ image.title }}</h1> 
+    {% comment %}
     ![]({{ image.image.url }})
+    {% endcomment %}
     <img src="{{ image.image.url }}"  height="500"/>
     {% with total_likes=image.users_like.count users_like=image.users_like.all %}
     <div class="image-info">

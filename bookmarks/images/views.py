@@ -57,6 +57,8 @@ def image_list(request):
             return HttpResponse('') 
         # If page is out of range deliver last page of results 
         images = paginator.page(paginator.num_pages) 
+    #ajax has bug can not display  need debug
+    images = Image.objects.all() 
     if request.is_ajax():
         return render(request, 'images/image/list_ajax.html', {'section': 'images', 'images': images}) 
     return render(request, 'images/image/list.html', {'section': 'images', 'images': images})

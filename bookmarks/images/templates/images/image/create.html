@@ -2,7 +2,10 @@
 {% block title %}Bookmark an image{% endblock %}
 {% block content %}
     <h1>Bookmark an image</h1>
+    {% comment %}
     ![]({{ request.GET.url }})
+    {% endcomment %}
+    <img src="{{ request.GET.url }}"  height="300"/>
     <form action="." method="post">
         {{ form.as_p }}
         {% csrf_token %}
