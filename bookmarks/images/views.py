@@ -5,6 +5,8 @@ from .forms import ImageCreateForm
 
 from django.shortcuts import get_object_or_404 
 from .models import Image
+from django.http import HttpResponse 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 @login_required
@@ -37,6 +39,31 @@ def image_create(request):
 def image_detail(request, id, slug): 
     image = get_object_or_404(Image, id=id, slug=slug) 
     return render(request, 'images/image/detail.html', {'section': 'images','image': image})
+
+
+@login_required 
+def image_list(request): 
+    images = Image.objects.all() 
+    paginator = Paginator(images, 8) 
+    page = request.GET.get('page') 
+    try: 
+        images = paginator.page(page) 
+    except PageNotAnInteger: 
+        # If page is not an integer deliver the first page 
+        images = paginator.page(1) 
+    except EmptyPage: 
+        if request.is_ajax(): 
+            # If the request is AJAX and the page is out of range return an empty page 
+            return HttpResponse('') 
+        # If page is out of range deliver last page of results 
+        images = paginator.page(paginator.num_pages) 
+    if request.is_ajax():
+        return render(request, 'images/image/list_ajax.html', {'section': 'images', 'images': images}) 
+    return render(request, 'images/image/list.html', {'section': 'images', 'images': images})
+
+
+
+
 
 
 #Django 同样也提供了 require_POST 装饰器来只允许 POST 请求
