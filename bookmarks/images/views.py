@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import ImageCreateForm
+from django.views.decorators.http import require_POST
 
 from django.shortcuts import get_object_or_404 
 from .models import Image
@@ -58,7 +59,7 @@ def image_list(request):
         # If page is out of range deliver last page of results 
         images = paginator.page(paginator.num_pages) 
     #ajax has bug can not display  need debug
-    images = Image.objects.all() 
+    #images = Image.objects.all() 
     if request.is_ajax():
         return render(request, 'images/image/list_ajax.html', {'section': 'images', 'images': images}) 
     return render(request, 'images/image/list.html', {'section': 'images', 'images': images})
@@ -73,7 +74,7 @@ def image_list(request):
 #使用 Django 提供的 JsonResponse 类来将给你定的对象转换为一个 JSON 输出
 #这个类返回一个带有 application/json 内容类型的 HTTP 响应
 @login_required
-#@require_POST
+@require_POST
 def image_like(request):
     image_id = request.POST.get('id')
     action = request.POST.get('action')
