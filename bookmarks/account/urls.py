@@ -56,6 +56,10 @@ urlpatterns = [
         url(r'^password-reset/complete/$',password_reset_complete,name='password_reset_complete'),
         url(r'^register/$', views.register, name='register'),
         url(r'^edit/$', views.edit, name='edit'),
+
+        # user profiles
+        url(r'^users/$', views.user_list, name='user_list'),
+        url(r'^users/(?P<username>[-\w]+)/$', views.user_detail, name='user_detail'),
 ]
 
 
