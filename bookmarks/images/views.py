@@ -6,8 +6,11 @@ from django.views.decorators.http import require_POST
 
 from django.shortcuts import get_object_or_404 
 from .models import Image
-from django.http import HttpResponse 
+from django.http import HttpResponse , JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from django.core.cache import cache
+from django.utils.cache import get_cache_key
 
 # Create your views here.
 @login_required
@@ -82,9 +85,9 @@ def image_like(request):
         try:
             image = Image.objects.get(id=image_id)
             if action == 'like':
-                image.users_like.add(request.user)
+                image.user_like.add(request.user)
             else:
-                image.users_like.remove(request.user)
+                image.user_like.remove(request.user)
             return JsonResponse({'status':'ok'})
         except:
             pass
