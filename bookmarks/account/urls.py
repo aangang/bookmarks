@@ -59,8 +59,12 @@ urlpatterns = [
 
         # user profiles
         url(r'^users/$', views.user_list, name='user_list'),
+        #请确保你放置的这个 URL 模式的位置在 user_detailURL 模式之前。否则，任何
+        #对 /users/follow/ 的请求都会被 user_detail 模式给正则匹配然后执行
+        url(r'^users/follow/$', views.user_follow, name='user_follow'),
         #因为gang.an名字里有“.”，所以\w不能匹配，会报错
         url(r'^users/(?P<username>.+)/$', views.user_detail, name='user_detail'),
+
 ]
 
 
