@@ -12,6 +12,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.cache import cache
 from django.utils.cache import get_cache_key
 
+from actions.utils import create_action
+
 # Create your views here.
 @login_required
 def image_create(request):
@@ -30,6 +32,8 @@ def image_create(request):
             #我们将绑定当前用户（user）到一个新的 iamge 对象。这样我们就可以知道是谁上传了每一张图片
             new_item.user = request.user
             new_item.save()
+            #活动流，一个用户给某张图片打上书签
+            create_action(request.user, 'bookmarked image', new_item)
             messages.success(request, 'Image added successfully')
             # redirect to new created item detail view
             #使用 Django 的信息框架创建了一条上传成功的消息然后重定向用户到新图像的规范URL
@@ -86,6 +90,8 @@ def image_like(request):
             image = Image.objects.get(id=image_id)
             if action == 'like':
                 image.user_like.add(request.user)
+                #活动流，一个用户like了一个图片
+                create_action(request.user, 'likes', image)
             else:
                 image.user_like.remove(request.user)
             return JsonResponse({'status':'ok'})
