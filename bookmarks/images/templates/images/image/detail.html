@@ -4,18 +4,18 @@
 {% block content %} 
     <h1>{{ image.title }}</h1> 
     
+    <a href="{{ image.image.url }}">
+        <img src="{{ image.image.url }}"  height="500"/>
+    </a>
+    
     {% comment %}
-    ![]({{ image.image.url }})
-    <img src="{{ image.image.url }}"  height="500"/>
-    {% endcomment %}
-    
-    
     {% load thumbnail %}
     {% thumbnail image.image "300" as im %}
         <a href="{{ image.image.url }}">
             <img src="{{ im.url }}" height="360">
         </a>
     {% endthumbnail %}
+    {% endcomment %}
     {% with total_likes=image.user_like.count users_like=image.user_like.all %}
     <div class="image-info">
         <div>
@@ -37,7 +37,6 @@
         {% for user in image.user_like.all %} 
             <div>
                 {%comment%}
-                ![]({{ user.profile.photo.url }})
                 {%endcomment%}
                 <img src="{{ user.profile.photo.url }}" />
                 <p>{{ user.first_name }}</p> 

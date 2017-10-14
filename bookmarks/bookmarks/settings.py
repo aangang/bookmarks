@@ -126,7 +126,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-from django.core.urlresolvers import reverse_lazy 
+from django.core.urlresolvers import reverse_lazy
+ 
 LOGIN_REDIRECT_URL = reverse_lazy('dashboard') 
 LOGIN_URL = reverse_lazy('login') 
 LOGOUT_URL = reverse_lazy('logout')
@@ -144,7 +145,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda u: reverse_lazy('user_detail', args=[u.username])
 }
-
 
 
 

@@ -3,15 +3,16 @@
 {% for image in images %} 
     <div class="image"> 
         <a href="{{ image.get_absolute_url }}"> 
-            {% comment %}
-            <img src="{{ image.image.url }}"  height="300"/>
-            {% endcomment %}
             
+            <img src="{{ image.image.url }}"  height="300"/>
+            
+            {% comment %}
             {% thumbnail image.image "300x300" crop="100%" as im %}
                 <a href="{{ image.get_absolute_url }}">
                     <img src="{{ im.url }}" >
                 </a>
             {% endthumbnail %}
+            {% endcomment %}
         </a> 
         <div class="info"> 
             <a href="{{ image.get_absolute_url }}" class="title">{{ image.title }}</a> 
