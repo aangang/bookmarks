@@ -59,6 +59,7 @@ urlpatterns = [
 
         # user profiles
         url(r'^users/$', views.user_list, name='user_list'),
+        #因为gang.an名字里有“.”，所以\w不能匹配，会报错
         url(r'^users/(?P<username>.+)/$', views.user_detail, name='user_detail'),
 ]
 
