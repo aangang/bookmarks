@@ -13,6 +13,10 @@
                 </a>
             {% endthumbnail %}
             {% endcomment %}
+            <span >
+            <span class="total">{{ image.total_likes }}</span>
+            likes
+            </span>
         </a> 
         <div class="info"> 
             <a href="{{ image.get_absolute_url }}" class="title">{{ image.title }}</a> 

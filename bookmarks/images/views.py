@@ -51,7 +51,8 @@ def image_detail(request, id, slug):
 
 @login_required 
 def image_list(request): 
-    images = Image.objects.all() 
+    #images = Image.objects.all() #按默认排序获取图片（默认为时间倒序）
+    images = Image.objects.order_by('-total_likes')
     paginator = Paginator(images, 8) 
     page = request.GET.get('page') 
     try: 

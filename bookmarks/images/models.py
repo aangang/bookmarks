@@ -25,6 +25,9 @@ class Image(models.Model):
     #image.user_like.all() 或者从一个 user 中回溯，比如：user.images_liked.all()
     user_like = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                         related_name='images_liked',blank=True)
+    #使用信号功能
+    #total_likes 字段给每张图片存储被用户喜欢的总数
+    total_likes = models.PositiveIntegerField(db_index=True,default=0)
     def __str__(self):
         return self.title
     def save(self,*args,**kwargs):
