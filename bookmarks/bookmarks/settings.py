@@ -27,7 +27,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 #DEBUG = False
 #ALLOWED_HOSTS = ['127.0.0.1', '8000']
-
+#ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
