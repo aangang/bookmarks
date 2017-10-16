@@ -35,6 +35,8 @@ class Image(models.Model):
             #使用了 Django 提供的 slugify() 函数在没有提供 slug 
             #字段时根据给定的图片标题自动生 slug
             self.slug = slugify(self.title)
+            if not self.slug:
+                self.slug = "undefined"
         super(Image,self).save(*args,**kwargs)
 
     def get_absolute_url(self): 
